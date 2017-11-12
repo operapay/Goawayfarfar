@@ -10,14 +10,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Gamescreen extends ScreenAdapter {
     private GoAwayFarFar goaway;
     private Texture characterImg;
+    private Texture tridentImg;
+    private Texture downtridentImg;
     private int x;
     private int y;
     
     public Gamescreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
         characterImg = new Texture("vampire.png");
-        x = 100;
-        y = 100;
+        tridentImg = new Texture("trident.png");
+        downtridentImg = new Texture("downtrident.png");
+        x = 50;
+        y = 50;
     }
     
     @Override
@@ -29,6 +33,8 @@ public class Gamescreen extends ScreenAdapter {
         SpriteBatch batch = goaway.batch;
         batch.begin();
         batch.draw(characterImg, x, y);
+        batch.draw(tridentImg,100,0);
+        batch.draw(downtridentImg,200,350);
         batch.end();
     }
     
