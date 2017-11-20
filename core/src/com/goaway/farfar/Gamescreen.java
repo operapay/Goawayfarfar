@@ -20,7 +20,7 @@ public class Gamescreen extends ScreenAdapter {
     private int y;
     private int speed;
     private int speed2;
-    
+    private int charspeed;
     
     public Gamescreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
@@ -29,58 +29,71 @@ public class Gamescreen extends ScreenAdapter {
         downtridentImg = new Texture("downtrident.png");
         x = 0;
         y = 0;
-        x1 = 100;
+        x1 = 250;
         x2 = 200;
         y1 = -50;
         y2 = 450;
+        charspeed = 8;
         speed = 2;
-        speed2 = 2;
-    }
-    
+        speed2 = 3;
+    }    
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
     	y1 += speed;
         if(y1>=0) {
         	speed *= -1;
-        	//y1*=-1;
         }
         if(y1<-100) {
         	speed *= -1;
-    	//y1 += 1;
         }
     	y2 -= speed2;
         if(y2<350) {
         	speed2 *= -1;
-        	//y1*=-1;
         }
         if(y2>500) {
         	speed2 *= -1;
-    	//y1 += 1;
         }
+        //x1 = speed;
+        //x2 += speed2;
     	System.out.println(y2);
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
         batch.draw(characterImg, x, y);
-        batch.draw(tridentImg,100,y1);
-        batch.draw(downtridentImg,200,y2);
+        for(int i=0;i<4;i++) {
+        	batch.draw(tridentImg,x1*i,y1);
+        	batch.draw(downtridentImg,x2*i,y2);
+        }
         batch.end();
     }
     
     private void update(float delta) {
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-            x -= 5;
+            x -= charspeed;
         }
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            x += 5;
+            x += charspeed;
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-            y -= 5;
+            y -= charspeed;
         }
         if(Gdx.input.isKeyPressed(Keys.UP)) {
-            y += 5;
+            y += charspeed;
+        }
+        if(x<0) {
+        	charspeed *= -1;
+        }
+        if(x>700) {
+        	charspeed *= -1;
+        }
+        if(y<0) {
+        	charspeed *= -1;
+        }
+        if(y>500) {
+        	charspeed *= -1;
         }
     }
 }
