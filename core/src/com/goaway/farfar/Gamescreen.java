@@ -6,11 +6,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Gamescreen extends ScreenAdapter {
     private GoAwayFarFar goaway;
     private Texture characterImg;
     private Texture tridentImg;
+    private Texture turtleImg;
     private Texture downtridentImg;
     private int x;
     private int x1;
@@ -21,9 +23,12 @@ public class Gamescreen extends ScreenAdapter {
     private int speed;
     private int speed2;
     private int charspeed;
+    private Item item;
     
     public Gamescreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
+        turtleImg = new Texture("turtle.png");
+        item = new Item(100,100);
         characterImg = new Texture("vampire.png");
         tridentImg = new Texture("trident.png");
         downtridentImg = new Texture("downtrident.png");
@@ -41,7 +46,20 @@ public class Gamescreen extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+        //checkcharecter
+        if(x<0) {
+        	charspeed *= -1;
+        }
+        if(x>700) {
+        	charspeed *= -1;
+        }
+        if(y<0) {
+        	charspeed *= -1;
+        }
+        if(y>500) {
+        	charspeed *= -1;
+        }
+        //checktrident
     	y1 += speed;
         if(y1>=0) {
         	speed *= -1;
@@ -58,10 +76,12 @@ public class Gamescreen extends ScreenAdapter {
         }
         //x1 = speed;
         //x2 += speed2;
-    	System.out.println(y2);
+    	//System.out.println(y2);
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
+        Vector2 pos = item.getPosition();
+        batch.draw(turtleImg, pos.x, pos.y);
         batch.draw(characterImg, x, y);
         for(int i=0;i<4;i++) {
         	batch.draw(tridentImg,x1*i,y1);
@@ -83,17 +103,6 @@ public class Gamescreen extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Keys.UP)) {
             y += charspeed;
         }
-        if(x<0) {
-        	charspeed *= -1;
-        }
-        if(x>700) {
-        	charspeed *= -1;
-        }
-        if(y<0) {
-        	charspeed *= -1;
-        }
-        if(y>500) {
-        	charspeed *= -1;
-        }
+        item.move();
     }
 }
