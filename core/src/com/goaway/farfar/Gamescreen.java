@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Gamescreen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter {
     private GoAwayFarFar goaway;
     private Texture characterImg;
     private Texture tridentImg;
@@ -17,18 +17,20 @@ public class Gamescreen extends ScreenAdapter {
     private Texture downtridentImg;
     private int x;
     private int y;
+    private int time;
     private Random tridentvy = new Random();
+    private Random turtleY = new Random();
     private int delta_y;
     private int delta_y2;
-    private int charspeed;
+    private int charSpeed;
     private Item item;
     private Trident trident;
     private Trident downtrident;
     
-    public Gamescreen(GoAwayFarFar goaway) {
+    public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
         turtleImg = new Texture("turtle.png");
-        item = new Item(500,100);
+        item = new Item(850,turtleY.nextInt(500));
         trident = new Trident(250,-50);
         downtrident = new Trident(200,450);
         characterImg = new Texture("vampire.png");
@@ -36,41 +38,18 @@ public class Gamescreen extends ScreenAdapter {
         downtridentImg = new Texture("downtrident.png");
         x = 0;
         y = 0;
-        //x1 = 250;
-        //x2 = 200;
-        //y1 = -50;
-       // y2 = 450;
-        charspeed = 8;
-        //speed = 2;
-        //speed2 = 3;
+        charSpeed = 8;
     }    
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //checkcharecter
         if(x<0 || x>700) {
-        	charspeed *= -1;
+        	charSpeed *= -1;
         }
         if(y<0 || y>500) {
-        	charspeed *= -1;
+        	charSpeed *= -1;
         }
-        //checktrident
-        /*
-    	y1 += speed;
-        if(y1>=0) {
-        	speed *= -1;
-        }
-        if(y1<-100) {
-        	speed *= -1;
-        }
-    	y2 -= speed2;
-        if(y2<350) {
-        	speed2 *= -1;
-        }
-        if(y2>500) {
-        	speed2 *= -1;
-        }*/
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
@@ -87,21 +66,30 @@ public class Gamescreen extends ScreenAdapter {
     }
     
     private void update(float delta) {
+    	time += 1;
         Vector2 posup = trident.getPosition();
         Vector2 posdown = downtrident.getPosition();
+        Vector2 pos = item.getPosition();
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-            x -= charspeed;
+            x -= charSpeed;
         }
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            x += charspeed;
+            x += charSpeed;
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-            y -= charspeed;
+            y -= charSpeed;
         }
         if(Gdx.input.isKeyPressed(Keys.UP)) {
-            y += charspeed;
+            y += charSpeed;
         }
-        item.move();
+        if((time%500)>200 & (time%500)<400) {
+        	item.move();
+        }
+        if(pos.x<-150) {
+        	pos.x = 850;
+        	pos.y = turtleY.nextInt(500);
+        }
+        System.out.println(time);
         if(posup.y<=-50) {
         	delta_y = tridentvy.nextInt(10);
         }

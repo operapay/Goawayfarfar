@@ -9,7 +9,7 @@ public class GoAwayFarFar extends Game {
     @Override
     public void create () {
         batch = new SpriteBatch();
-        setScreen(new Gamescreen(this));
+        setScreen(new GameScreen(this));
     }
     
     @Override
