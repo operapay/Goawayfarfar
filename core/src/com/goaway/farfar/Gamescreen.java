@@ -17,6 +17,7 @@ public class GameScreen extends ScreenAdapter {
     private Texture turtleImg;
     private Texture rocketImg;
     private Texture downtridentImg;
+    private Texture downtrident2Img;
     private int x;
     private int y;
     private int time;
@@ -31,6 +32,7 @@ public class GameScreen extends ScreenAdapter {
     private Trident trident;
     private Trident trident2;
     private Trident downtrident;
+    private Trident downtrident2;
     
     public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
@@ -38,16 +40,18 @@ public class GameScreen extends ScreenAdapter {
         rocketImg = new Texture("rocket.png");
         turtle = new Item(850,turtleY.nextInt(500));
         rocket = new Item(850,rocketY.nextInt(500));
-        trident = new Trident(850,-50);
-        trident2 = new Trident(850,-50);
-        downtrident = new Trident(0,400);
+        trident = new Trident(800,-10);
+        trident2 = new Trident(800,-10);
+        downtrident = new Trident(0,360);
+        downtrident2 = new Trident(0,360);
         characterImg = new Texture("vampire.png");
         tridentImg = new Texture("trident.png");
         trident2Img = new Texture("trident.png");
         downtridentImg = new Texture("downtrident.png");
-        x = 100;
-        y = 0;
-        charSpeed = 8;
+        downtrident2Img = new Texture("downtrident.png");
+        x = 350;
+        y = 200;
+        charSpeed = 12;
     }    
     @Override
     public void render(float delta) {
@@ -64,12 +68,14 @@ public class GameScreen extends ScreenAdapter {
         Vector2 posup = trident.getPosition();
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
+        Vector2 posdown2 = downtrident2.getPosition();
         batch.draw(turtleImg, positionturtle.x, positionturtle.y);
         batch.draw(rocketImg, positionrocket.x, positionrocket.y);
         batch.draw(characterImg, x, y);
     	batch.draw(tridentImg,posup.x,posup.y);
     	batch.draw(trident2Img,posup2.x,posup2.y);
     	batch.draw(downtridentImg,posdown.x,posdown.y);
+    	batch.draw(downtrident2Img,posdown2.x,posdown2.y);
         batch.end();
     }
     
@@ -78,6 +84,7 @@ public class GameScreen extends ScreenAdapter {
         Vector2 posup = trident.getPosition();        
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
+        Vector2 posdown2 = downtrident2.getPosition();
         Vector2 positionturtle = turtle.getPosition();
         Vector2 positionrocket = rocket.getPosition();
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
@@ -103,17 +110,35 @@ public class GameScreen extends ScreenAdapter {
         if(posup.x > -200) {
         	trident.move();
         }
-    	if(posup.x == -200)
+    	if(posup.x >= -300 && posup.x <= -200)
         {
-        	posup.x = 600;
+        	posup.x = 700 + (times.nextInt(50));
+        }
+    	if(posup2.x > -200) {
+    		trident2.move();
+    	}
+    	if(posup2.x >= -300 && posup2.x <= -200)
+        {
+        	posup2.x = 800 + (times.nextInt(100));
         }
     	if(posdown.x < 800)
     	{
     		downtrident.downmove();
     	}
-    	if(posdown.x == 800)
+    	if(posdown.x >= 800 && posdown.x <= 850)
         {
-        	posdown.x = -150;
+        	posdown.x = -100;
         }
+    	if(posdown2.x < 800)
+    	{
+    		downtrident2.downmove();
+    	}
+    	if(posdown2.x >= 800 && posdown2.x <= 850)
+        {
+        	posdown2.x = -250;
+        }
+    	System.out.println(posdown.x);
+    	System.out.println(posdown2.x);
+    	System.out.println("------");
     }
 }
