@@ -14,21 +14,22 @@ public class GameScreen extends ScreenAdapter {
     private Texture characterImg;
     private Texture tridentImg;
     private Texture trident2Img;
-    private Texture turtleImg;
-    private Texture rocketImg;
+    private Texture garlicImg;
+    private Texture bloodImg;
     private Texture downtridentImg;
     private Texture downtrident2Img;
+    private Texture backgroundImg;
     private int x;
     private int y;
     private int time;
     private int timesrandom;
     private Random tridentvy = new Random();
     private Random times = new Random();
-    private Random turtleY = new Random();
-    private Random rocketY = new Random();
+    private Random garlicY = new Random();
+    private Random bloodY = new Random();
     private int charSpeed;
-    private Item turtle;
-    private Item rocket;
+    private Item garlic;
+    private Item blood;
     private Trident trident;
     private Trident trident2;
     private Trident downtrident;
@@ -36,10 +37,10 @@ public class GameScreen extends ScreenAdapter {
     
     public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
-        turtleImg = new Texture("turtle.png");
-        rocketImg = new Texture("rocket.png");
-        turtle = new Item(850,turtleY.nextInt(500));
-        rocket = new Item(850,rocketY.nextInt(500));
+        garlicImg = new Texture("garlic.png");
+        bloodImg = new Texture("blood.png");
+        garlic = new Item(850,garlicY.nextInt(500));
+        blood = new Item(850,bloodY.nextInt(500));
         trident = new Trident(800,-10);
         trident2 = new Trident(800,-10);
         downtrident = new Trident(0,360);
@@ -49,6 +50,7 @@ public class GameScreen extends ScreenAdapter {
         trident2Img = new Texture("trident.png");
         downtridentImg = new Texture("downtrident.png");
         downtrident2Img = new Texture("downtrident.png");
+        backgroundImg = new Texture("2.jpg");
         x = 350;
         y = 200;
         charSpeed = 12;
@@ -63,14 +65,15 @@ public class GameScreen extends ScreenAdapter {
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
-        Vector2 positionturtle = turtle.getPosition();
-        Vector2 positionrocket = rocket.getPosition();
+        Vector2 positiongarlic = garlic.getPosition();
+        Vector2 positionblood = blood.getPosition();
         Vector2 posup = trident.getPosition();
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
-        batch.draw(turtleImg, positionturtle.x, positionturtle.y);
-        batch.draw(rocketImg, positionrocket.x, positionrocket.y);
+        batch.draw(backgroundImg, 0, 100);
+        batch.draw(garlicImg, positiongarlic.x, positiongarlic.y);
+        batch.draw(bloodImg, positionblood.x, positionblood.y);
         batch.draw(characterImg, x, y);
     	batch.draw(tridentImg,posup.x,posup.y);
     	batch.draw(trident2Img,posup2.x,posup2.y);
@@ -85,8 +88,8 @@ public class GameScreen extends ScreenAdapter {
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
-        Vector2 positionturtle = turtle.getPosition();
-        Vector2 positionrocket = rocket.getPosition();
+        Vector2 positiongarlic = garlic.getPosition();
+        Vector2 positionblood = blood.getPosition();
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
             y -= charSpeed;
         }
@@ -94,18 +97,18 @@ public class GameScreen extends ScreenAdapter {
             y += charSpeed;
         }
         if(time%500 == 150) {
-        	positionturtle.x = 850;
-        	positionturtle.y = turtleY.nextInt(500);
+        	positiongarlic.x = 850;
+        	positiongarlic.y = garlicY.nextInt(500);
         }
         if((time%500)>300 & (time%500)<500) {
-        	turtle.move();
+        	garlic.move();
         }
         if(time%500 == 250) {
-        	positionrocket.x = 800;
-        	positionrocket.y = rocketY.nextInt(500);
+        	positionblood.x = 800;
+        	positionblood.y = bloodY.nextInt(500);
         }
         if((time%500)>100 & (time%500)<500) {
-        	rocket.move2();
+        	blood.move2();
         }
         if(posup.x > -200) {
         	trident.move();
