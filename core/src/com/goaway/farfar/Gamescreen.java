@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter {
     private GoAwayFarFar goaway;
+    private Charecter charecter;
+    World world;
     private Texture characterImg;
     private Texture tridentImg;
     private Texture trident2Img;
@@ -19,8 +21,6 @@ public class GameScreen extends ScreenAdapter {
     private Texture downtridentImg;
     private Texture downtrident2Img;
     private Texture backgroundImg;
-    private int x;
-    private int y;
     private int time;
     private int timesrandom;
     private Random tridentvy = new Random();
@@ -37,6 +37,7 @@ public class GameScreen extends ScreenAdapter {
     
     public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
+        world = new World(goaway);
         garlicImg = new Texture("garlic.png");
         bloodImg = new Texture("blood.png");
         garlic = new Item(850,garlicY.nextInt(500));
@@ -51,30 +52,29 @@ public class GameScreen extends ScreenAdapter {
         downtridentImg = new Texture("downtrident.png");
         downtrident2Img = new Texture("downtrident.png");
         backgroundImg = new Texture("2.jpg");
-        x = 350;
-        y = 200;
-        charSpeed = 12;
+        charecter = world.getCharecter();
     }    
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(y<0 || y>500) {
-        	charSpeed *= -1;
-        }
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
+        Vector2 poschar = charecter.getPosition();
         Vector2 positiongarlic = garlic.getPosition();
         Vector2 positionblood = blood.getPosition();
         Vector2 posup = trident.getPosition();
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
+        if(poschar.y<0 || poschar.y>500) {
+        	Charecter.SPEED *= -1;
+        }
         batch.draw(backgroundImg, 0, 100);
         batch.draw(garlicImg, positiongarlic.x, positiongarlic.y);
         batch.draw(bloodImg, positionblood.x, positionblood.y);
-        batch.draw(characterImg, x, y);
+        batch.draw(characterImg, poschar.x, poschar.y);
     	batch.draw(tridentImg,posup.x,posup.y);
     	batch.draw(trident2Img,posup2.x,posup2.y);
     	batch.draw(downtridentImg,posdown.x,posdown.y);
@@ -91,11 +91,11 @@ public class GameScreen extends ScreenAdapter {
         Vector2 positiongarlic = garlic.getPosition();
         Vector2 positionblood = blood.getPosition();
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-            y -= charSpeed;
+        	charecter.move(Charecter.DIRECTION_DOWN);
         }
         if(Gdx.input.isKeyPressed(Keys.UP)) {
-            y += charSpeed;
-        }
+        	charecter.move(Charecter.DIRECTION_UP);
+        } 
         if(time%500 == 150) {
         	positiongarlic.x = 850;
         	positiongarlic.y = garlicY.nextInt(500);
@@ -140,8 +140,5 @@ public class GameScreen extends ScreenAdapter {
         {
         	posdown2.x = -250;
         }
-    	System.out.println(posdown.x);
-    	System.out.println(posdown2.x);
-    	System.out.println("------");
     }
 }

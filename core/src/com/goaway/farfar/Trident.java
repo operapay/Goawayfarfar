@@ -5,9 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Trident {
     private Vector2 position;
- //   private Random tridentvy = new Random();
     public static final int SPEED = 7;
-    //public static final int SPEED2 = 7;
     public Trident(int x,int y) {
         position = new Vector2(x,y);
     }
