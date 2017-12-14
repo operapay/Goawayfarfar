@@ -5,28 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter {
     World world;
+    WorldRenderer worldRenderer;
     private GoAwayFarFar goaway;
     private Charecter charecter;
-    private Texture characterImg;
-    private Texture tridentImg;
-    private Texture trident2Img;
-    private Texture garlicImg;
-    private Texture bloodImg;
-    private Texture downtridentImg;
-    private Texture downtrident2Img;
-    private Texture backgroundImg;
     private int time;
-    //private int timesrandom;
-    //private Random tridentvy = new Random();
     private Random times = new Random();
-    //private Random garlicY = new Random();
-    //private Random bloodY = new Random();
     private Item garlic;
     private Item blood;
     private Trident trident;
@@ -37,23 +24,15 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
         world = new World(goaway);
-        garlicImg = new Texture("garlic.png");
-        bloodImg = new Texture("blood.png");
-       // garlic = new Item(850,garlicY.nextInt(500));
-        //blood = new Item(850,bloodY.nextInt(500));
-        trident = new Trident(800,-10);
-        trident2 = new Trident(800,-10);
-        downtrident = new Trident(0,360);
-        downtrident2 = new Trident(0,360);
-        characterImg = new Texture("vampire.png");
-        tridentImg = new Texture("trident.png");
-        trident2Img = new Texture("trident.png");
-        downtridentImg = new Texture("downtrident.png");
-        downtrident2Img = new Texture("downtrident.png");
-        backgroundImg = new Texture("2.jpg");
+        
+        worldRenderer = new WorldRenderer(goaway, world);
         charecter = world.getCharecter();
         garlic = world.getGarlic();
         blood = world.getBlood();
+        trident = world.getTrident();
+        trident2 = world.getTrident2();
+        downtrident = world.getDowntrident();
+        downtrident2 = world.getDowntrident2();
         
     }    
     @Override
@@ -61,37 +40,15 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     	update(delta);
-        SpriteBatch batch = goaway.batch;
-        batch.begin();
-        Vector2 poschar = charecter.getPosition();
-        Vector2 positiongarlic = garlic.getPosition();
-        Vector2 positionblood = blood.getPosition();
-        Vector2 posup = trident.getPosition();
-        Vector2 posup2 = trident2.getPosition();
-        Vector2 posdown = downtrident.getPosition();
-        Vector2 posdown2 = downtrident2.getPosition();
-        if(poschar.y<0 || poschar.y>500) {
-        	Charecter.SPEED *= -1;
-        }
-        batch.draw(backgroundImg, 0, 100);
-        batch.draw(garlicImg, positiongarlic.x, positiongarlic.y);
-        batch.draw(bloodImg, positionblood.x, positionblood.y);
-        batch.draw(characterImg, poschar.x, poschar.y);
-    	batch.draw(tridentImg,posup.x,posup.y);
-    	batch.draw(trident2Img,posup2.x,posup2.y);
-    	batch.draw(downtridentImg,posdown.x,posdown.y);
-    	batch.draw(downtrident2Img,posdown2.x,posdown2.y);
-        batch.end();
+    	worldRenderer.render(delta);
     }
     
     private void update(float delta) {
     	time += 1;
-        Vector2 posup = trident.getPosition();        
-        Vector2 posup2 = trident2.getPosition();
-        Vector2 posdown = downtrident.getPosition();
-        Vector2 posdown2 = downtrident2.getPosition();
-        //Vector2 positiongarlic = garlic.getPosition();
-        //Vector2 positionblood = blood.getPosition();
+    	Vector2 posup = world.getTrident().getPosition();
+        Vector2 posup2 = world.getTrident2().getPosition();
+        Vector2 posdown = world.getDowntrident().getPosition();
+        Vector2 posdown2 = world.getDowntrident2().getPosition();
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
         	charecter.move(Charecter.DIRECTION_DOWN);
         }
