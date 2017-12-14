@@ -5,19 +5,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Trident {
     private Vector2 position;
-    private Random tridentvy = new Random();
+ //   private Random tridentvy = new Random();
+    public static final int SPEED = 5;
+    //public static final int SPEED2 = 5;
     public Trident(int x,int y) {
         position = new Vector2(x,y);
     }
     public Vector2 getPosition() {
         return position;    
     }
-	public void moveUp() {
-		//position.y += 5;
-		position.x += tridentvy.nextInt(10);
+	public void move() {
+		position.x -= SPEED;
 	}
-	public void moveDown() {
-		//position.y += 5;
-		position.x += -(tridentvy.nextInt(10));
+	public void downmove() {
+		position.x += SPEED;
 	}
 }
