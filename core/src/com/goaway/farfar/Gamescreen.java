@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter {
+    World world;
     private GoAwayFarFar goaway;
     private Charecter charecter;
-    World world;
     private Texture characterImg;
     private Texture tridentImg;
     private Texture trident2Img;
@@ -22,12 +22,11 @@ public class GameScreen extends ScreenAdapter {
     private Texture downtrident2Img;
     private Texture backgroundImg;
     private int time;
-    private int timesrandom;
-    private Random tridentvy = new Random();
+    //private int timesrandom;
+    //private Random tridentvy = new Random();
     private Random times = new Random();
-    private Random garlicY = new Random();
-    private Random bloodY = new Random();
-    private int charSpeed;
+    //private Random garlicY = new Random();
+    //private Random bloodY = new Random();
     private Item garlic;
     private Item blood;
     private Trident trident;
@@ -40,8 +39,8 @@ public class GameScreen extends ScreenAdapter {
         world = new World(goaway);
         garlicImg = new Texture("garlic.png");
         bloodImg = new Texture("blood.png");
-        garlic = new Item(850,garlicY.nextInt(500));
-        blood = new Item(850,bloodY.nextInt(500));
+       // garlic = new Item(850,garlicY.nextInt(500));
+        //blood = new Item(850,bloodY.nextInt(500));
         trident = new Trident(800,-10);
         trident2 = new Trident(800,-10);
         downtrident = new Trident(0,360);
@@ -53,6 +52,9 @@ public class GameScreen extends ScreenAdapter {
         downtrident2Img = new Texture("downtrident.png");
         backgroundImg = new Texture("2.jpg");
         charecter = world.getCharecter();
+        garlic = world.getGarlic();
+        blood = world.getBlood();
+        
     }    
     @Override
     public void render(float delta) {
@@ -88,8 +90,8 @@ public class GameScreen extends ScreenAdapter {
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
-        Vector2 positiongarlic = garlic.getPosition();
-        Vector2 positionblood = blood.getPosition();
+        //Vector2 positiongarlic = garlic.getPosition();
+        //Vector2 positionblood = blood.getPosition();
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
         	charecter.move(Charecter.DIRECTION_DOWN);
         }
@@ -97,15 +99,13 @@ public class GameScreen extends ScreenAdapter {
         	charecter.move(Charecter.DIRECTION_UP);
         } 
         if(time%500 == 150) {
-        	positiongarlic.x = 850;
-        	positiongarlic.y = garlicY.nextInt(500);
+        	garlic.gengarlic();
         }
         if((time%500)>300 & (time%500)<500) {
         	garlic.move();
         }
         if(time%500 == 250) {
-        	positionblood.x = 800;
-        	positionblood.y = bloodY.nextInt(500);
+        	blood.genblood();
         }
         if((time%500)>100 & (time%500)<500) {
         	blood.move2();

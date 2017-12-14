@@ -1,6 +1,7 @@
 package com.goaway.farfar;
 
-import java.util.Random;
+//import java.util.Random;
+
 import com.badlogic.gdx.math.Vector2;
 
 public class Trident {
