@@ -14,23 +14,28 @@ public class GameScreen extends ScreenAdapter {
     private Texture characterImg;
     private Texture tridentImg;
     private Texture turtleImg;
+    private Texture rocketImg;
     private Texture downtridentImg;
     private int x;
     private int y;
     private int time;
     private Random tridentvy = new Random();
     private Random turtleY = new Random();
+    private Random rocketY = new Random();
     private int delta_y;
     private int delta_y2;
     private int charSpeed;
-    private Item item;
+    private Item turtle;
+    private Item rocket;
     private Trident trident;
     private Trident downtrident;
     
     public GameScreen(GoAwayFarFar goaway) {
         this.goaway = goaway;
         turtleImg = new Texture("turtle.png");
-        item = new Item(850,turtleY.nextInt(500));
+        rocketImg = new Texture("rocket.png");
+        turtle = new Item(850,turtleY.nextInt(500));
+        rocket = new Item(850,rocketY.nextInt(500));
         trident = new Trident(250,-50);
         downtrident = new Trident(200,450);
         characterImg = new Texture("vampire.png");
@@ -53,15 +58,19 @@ public class GameScreen extends ScreenAdapter {
     	update(delta);
         SpriteBatch batch = goaway.batch;
         batch.begin();
-        Vector2 pos = item.getPosition();
+        Vector2 positionturtle = turtle.getPosition();
+        Vector2 positionrocket = rocket.getPosition();
         Vector2 posup = trident.getPosition();
         Vector2 posdown = downtrident.getPosition();
-        batch.draw(turtleImg, pos.x, pos.y);
+        batch.draw(turtleImg, positionturtle.x, positionturtle.y);
+        batch.draw(rocketImg, positionrocket.x, positionrocket.y);
         batch.draw(characterImg, x, y);
-        for(int i=0;i<4;i++) {
+        /*for(int i=0;i<4;i++) {
         	batch.draw(tridentImg,posup.x*i,posup.y);
         	batch.draw(downtridentImg,posdown.x*i,posdown.y);
-        }
+        }*/
+    	batch.draw(tridentImg,posup.x,posup.y);
+    	batch.draw(downtridentImg,posdown.x,posdown.y);
         batch.end();
     }
     
@@ -69,7 +78,8 @@ public class GameScreen extends ScreenAdapter {
     	time += 1;
         Vector2 posup = trident.getPosition();
         Vector2 posdown = downtrident.getPosition();
-        Vector2 pos = item.getPosition();
+        Vector2 positionturtle = turtle.getPosition();
+        Vector2 positionrocket = rocket.getPosition();
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             x -= charSpeed;
         }
@@ -82,15 +92,22 @@ public class GameScreen extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Keys.UP)) {
             y += charSpeed;
         }
-        if((time%500)>200 & (time%500)<400) {
-        	item.move();
+        if(time%500 == 150) {
+        	positionturtle.x = 850;
+        	positionturtle.y = turtleY.nextInt(500);
         }
-        if(pos.x<-150) {
-        	pos.x = 850;
-        	pos.y = turtleY.nextInt(500);
+        if((time%500)>300 & (time%500)<500) {
+        	turtle.move();
         }
-        System.out.println(time);
-        if(posup.y<=-50) {
+        if(time%500 == 250) {
+        	positionrocket.x = 800;
+        	positionrocket.y = rocketY.nextInt(500);
+        }
+        if((time%500)>100 & (time%500)<500) {
+        	rocket.move2();
+        }
+        //System.out.println(time);
+       /* if(posup.y<=-50) {
         	delta_y = tridentvy.nextInt(10);
         }
         if(posup.y>=0) {
@@ -104,6 +121,10 @@ public class GameScreen extends ScreenAdapter {
         if(posdown.y>=450) {
         	delta_y2 = -(tridentvy.nextInt(10));
         }
-        posdown.y += delta_y2;
+        posdown.y += delta_y2;*/
+        if(time%100 == 10) {
+        trident.moveUp();
+        downtrident.moveDown();
+        }
     }
 }

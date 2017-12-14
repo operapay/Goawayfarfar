@@ -6,6 +6,7 @@ public class Item {
 	
     private Vector2 position;
     public static final int SPEED = 5;
+    public static final int SPEED2 = 7;
     
     public Item(int x, int y) {
         position = new Vector2(x,y);
@@ -17,5 +18,8 @@ public class Item {
     
     public void move() { 
         position.x -= SPEED;
+    }
+    public void move2() { 
+        position.x -= SPEED2;
     }
 }
