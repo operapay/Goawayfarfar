@@ -10,7 +10,7 @@ public class Charecter {
     public static final int DIRECTION_LEFT = 4;
     public static final int DIRECTION_STILL = 0;
     private Vector2 position;
-    public static int SPEED = 12;
+    public static int SPEED = 15;
     
     public Charecter(int x, int y) {
         position = new Vector2(x,y);

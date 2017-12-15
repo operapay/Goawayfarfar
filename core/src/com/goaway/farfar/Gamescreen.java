@@ -1,6 +1,6 @@
 package com.goaway.farfar;
 
-import java.util.Random;
+//import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 public class GameScreen extends ScreenAdapter {
     World world;
     WorldRenderer worldRenderer;
-    private GoAwayFarFar goaway;
+    private GoAwayFarFar goawayGame;
     private Charecter charecter;
     private int time;
-    private Random times = new Random();
+    //private Random times = new Random();
     private Item garlic;
     private Item blood;
     private Trident trident;
@@ -21,11 +21,11 @@ public class GameScreen extends ScreenAdapter {
     private Trident downtrident;
     private Trident downtrident2;
     
-    public GameScreen(GoAwayFarFar goaway) {
-        this.goaway = goaway;
-        world = new World(goaway);
+    public GameScreen(GoAwayFarFar goawayGame) {
+        this.setGoawayGame(goawayGame);
+        world = new World(goawayGame);
+        worldRenderer = new WorldRenderer(goawayGame, world);
         
-        worldRenderer = new WorldRenderer(goaway, world);
         charecter = world.getCharecter();
         garlic = world.getGarlic();
         blood = world.getBlood();
@@ -45,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
     
     private void update(float delta) {
     	time += 1;
+    	world.increaseScore();
     	Vector2 posup = world.getTrident().getPosition();
         Vector2 posup2 = world.getTrident2().getPosition();
         Vector2 posdown = world.getDowntrident().getPosition();
@@ -70,32 +71,32 @@ public class GameScreen extends ScreenAdapter {
         if(posup.x > -200) {
         	trident.move();
         }
-    	if(posup.x >= -300 && posup.x <= -200)
-        {
-        	posup.x = 700 + (times.nextInt(50));
-        }
     	if(posup2.x > -200) {
     		trident2.move();
     	}
     	if(posup2.x >= -300 && posup2.x <= -200)
         {
-        	posup2.x = 800 + (times.nextInt(100));
+    		trident.genTrident();
+        	trident2.genTrident2();
         }
     	if(posdown.x < 800)
     	{
     		downtrident.downmove();
     	}
-    	if(posdown.x >= 800 && posdown.x <= 850)
-        {
-        	posdown.x = -100;
-        }
     	if(posdown2.x < 800)
     	{
     		downtrident2.downmove();
     	}
     	if(posdown2.x >= 800 && posdown2.x <= 850)
         {
-        	posdown2.x = -250;
+    		downtrident.genDowntrident();
+        	downtrident2.genDowntrident2();
         }
     }
+	public GoAwayFarFar getGoawayGame() {
+		return goawayGame;
+	}
+	public void setGoawayGame(GoAwayFarFar goawayGame) {
+		this.goawayGame = goawayGame;
+	}
 }
