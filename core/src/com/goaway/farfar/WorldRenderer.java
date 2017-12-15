@@ -3,7 +3,7 @@ package com.goaway.farfar;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+//import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
 	private World world;
@@ -37,20 +37,20 @@ public class WorldRenderer {
 	public void render (float delta) {
         SpriteBatch batch = goaway.batch;
         batch.begin();
-        Vector2 poschar = world.getCharecter().getPosition();
-        Vector2 positiongarlic = world.getGarlic().getPosition();
-        Vector2 positionblood = world.getBlood().getPosition();
+        Charecter poschar = world.getCharecter();
+        Item positiongarlic = world.getGarlic();
+        Item positionblood = world.getBlood();
         Trident posup = world.getTrident();
         Trident posup2 = world.getTrident2();
         Trident posdown = world.getDowntrident();
         Trident posdown2 = world.getDowntrident2();
-        if(poschar.y<0 || poschar.y>500) {
+        if(poschar.getPosition().y<0 || poschar.getPosition().y>500) {
         	Charecter.SPEED *= -1;
         }
         batch.draw(backgroundImg, 0, 100);
-        batch.draw(garlicImg, positiongarlic.x, positiongarlic.y);
-        batch.draw(bloodImg, positionblood.x, positionblood.y);
-        batch.draw(characterImg, poschar.x, poschar.y);
+        batch.draw(garlicImg, positiongarlic.getPosition().x, positiongarlic.getPosition().y,positiongarlic.width,positiongarlic.height);
+        batch.draw(bloodImg, positionblood.getPosition().x, positionblood.getPosition().y,positionblood.width,positionblood.height);
+        batch.draw(characterImg, poschar.getPosition().x, poschar.getPosition().y,poschar.width,poschar.height);
     	batch.draw(tridentImg,posup.getPosition().x,posup.getPosition().y,posup.width,posup.height);
     	batch.draw(trident2Img,posup2.getPosition().x,posup2.getPosition().y,posup2.width,posup2.height);
     	batch.draw(downtridentImg,posdown.getPosition().x,posdown.getPosition().y,posdown.width,posdown.height);

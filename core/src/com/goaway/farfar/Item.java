@@ -10,9 +10,13 @@ public class Item {
     public static final int SPEED = 5;
     public static final int SPEED2 = 7;
     private Random number = new Random();
+    public int width;
+    public int height;
     
     public Item(int x, int y) {
         position = new Vector2(x,y);
+        width = 70;
+        height = 70;
     }    
  
     public Vector2 getPosition() {
