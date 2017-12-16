@@ -30,12 +30,14 @@ public class Item {
     }
     public void move() { 
         position.x -= SPEED;
+        rectangle.setPosition(position.x,position.y);
     }
     public void move2() { 
         position.x -= SPEED2;
+        rectangle.setPosition(position.x,position.y);
     }
 	public void gengarlic() {
-    	position.x = 850;
+    	position.x = 900;
     	position.y = number.nextInt(500);
 	}
 	public void genblood() {

@@ -15,7 +15,7 @@ public class Trident {
     
     public Trident(int x,int y) {
         position = new Vector2(x,y);
-        width = 220;
+        width = 180;
         height = 260;
         rectangle = new Rectangle(x,y,width,height);
     }
@@ -27,20 +27,26 @@ public class Trident {
     }
 	public void move() {
 		position.x -= SPEED;
+		rectangle.setPosition(position.x, position.y);
 	}
 	public void downmove() {
 		position.x += SPEED;
+		rectangle.setPosition(position.x, position.y);
 	}
 	public void genTrident() {
 		position.x = 800;
+		rectangle.setPosition(position.x, position.y);
 	}
 	public void genTrident2() {
 		position.x = 1050 + (times.nextInt(250));
+		rectangle.setPosition(position.x, position.y);
 	}
 	public void genDowntrident() {
 		position.x = -200;
+		rectangle.setPosition(position.x, position.y);
 	}
 	public void genDowntrident2() {
 		position.x = -450-(times.nextInt(250));
+		rectangle.setPosition(position.x, position.y);
 	}
 }

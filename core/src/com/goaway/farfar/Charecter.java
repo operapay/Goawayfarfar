@@ -23,7 +23,7 @@ public class Charecter {
         width = 130;
         height = 130;
         rectangle = new Rectangle(x,y,width,height);
-    }    
+    }   
  
     public Vector2 getPosition() {
         return position;    
@@ -44,5 +44,6 @@ public class Charecter {
     public void move(int dir) { 
         position.x += SPEED * DIR_OFFSETS[dir][0];
         position.y += SPEED * DIR_OFFSETS[dir][1];
+        rectangle.setPosition(position.x,position.y);
     }
 }

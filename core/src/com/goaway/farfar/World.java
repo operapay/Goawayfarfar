@@ -57,20 +57,6 @@ public class World {
 	Trident getDowntrident2() {
 		return downtrident2;
 	}
-	public boolean overlap() {
-		if(trident.getPosition().x + trident.width > charecter.getPosition().x ||
-		downtrident.getPosition().x < charecter.getPosition().x + charecter.width ||
-		trident2.getPosition().x + trident2.width > charecter.getPosition().x ||
-		downtrident2.getPosition().x < charecter.getPosition().x + charecter.width ||
-		trident.getPosition().y + trident.height > charecter.getPosition().y ||
-		downtrident.getPosition().y < charecter.getPosition().x + charecter.height ||
-		trident2.getPosition().y + trident2.height > charecter.getPosition().y ||
-		downtrident2.getPosition().y < charecter.getPosition().x + charecter.height) {
-			return false;
-		}
-		else
-			return true;
-	}
 	public GoAwayFarFar getGoawayGame() {
 		return goawayGame;
 	}
@@ -129,7 +115,7 @@ public class World {
     		Charecter.SPEED = 20;
     		blood.genblood();
     	} 
-    	/*if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()))
+    	if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()))
     	{
     		gameState = 1;
     	}
@@ -144,10 +130,6 @@ public class World {
     	if(Intersector.overlaps(charecter.getRectangle(),downtrident.getRectangle()))
     	{
     		gameState = 1;
-    	} */
-    	if(!(overlap())) {
-    		System.out.println("hit!");
-    		gameState = 1;
-    	}
+    	} 
 	}
 }

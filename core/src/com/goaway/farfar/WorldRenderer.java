@@ -4,7 +4,7 @@ package com.goaway.farfar;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class WorldRenderer {
 	private World world;
@@ -38,7 +38,9 @@ public class WorldRenderer {
     }
 	public void render (float delta) {
         SpriteBatch batch = goaway.batch;
+        ShapeRenderer shapeRenderer = goaway.shapeRenderer;
         batch.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         Charecter poschar = world.getCharecter();
         Item positiongarlic = world.getGarlic();
         Item positionblood = world.getBlood();
@@ -61,11 +63,21 @@ public class WorldRenderer {
     	batch.draw(downtridentImg,posdown.getPosition().x,posdown.getPosition().y,posdown.width,posdown.height);
     	batch.draw(downtrident2Img,posdown2.getPosition().x,posdown2.getPosition().y,posdown2.width,posdown2.height);
     	//batch.draw(new Rectangle(10,100,50,30));
+    	shapeRenderer.rect(poschar.getRectangle().x , poschar.getRectangle().y,poschar.getRectangle().width,poschar.getRectangle().height);
+        shapeRenderer.rect(positiongarlic.getRectangle().x , positiongarlic.getRectangle().y,positiongarlic.getRectangle().width,positiongarlic.getRectangle().height);
+        shapeRenderer.rect(positionblood.getRectangle().x , positionblood.getRectangle().y,positionblood.getRectangle().width,positionblood.getRectangle().height);
+
+
+        shapeRenderer.rect(posup.getRectangle().x , posup.getRectangle().y,posup.getRectangle().width,posup.getRectangle().height);
+        shapeRenderer.rect(posup2.getRectangle().x , posup2.getRectangle().y,posup2.getRectangle().width,posup2.getRectangle().height);
+        shapeRenderer.rect(posdown.getRectangle().x , posdown.getRectangle().y,posdown.getRectangle().width,posdown.getRectangle().height);
+        shapeRenderer.rect(posdown2.getRectangle().x , posdown2.getRectangle().y,posdown2.getRectangle().width,posdown2.getRectangle().height);
     	font.draw(batch, "score " + world.getScore(), 620, 70);
 		if(world.gameState == 1) {
 			font.draw(batch, "gameOver", 320,300);
 			font.draw(batch, "highscore  " + world.getScore(),300,250);
 		}
         batch.end();
+        shapeRenderer.end();
 	}
 }
