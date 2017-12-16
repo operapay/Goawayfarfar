@@ -41,6 +41,10 @@ public class GameScreen extends ScreenAdapter {
         }
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
         	charecter.move(Charecter.DIRECTION_RIGHT);
+        }
+        if(Gdx.input.isKeyPressed(Keys.ENTER)) {
+        	world.gameState = 0;
+        	world.resetWorld();
         } 
     }
 	public GoAwayFarFar getGoawayGame() {

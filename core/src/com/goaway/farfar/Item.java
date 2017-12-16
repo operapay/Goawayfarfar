@@ -37,7 +37,7 @@ public class Item {
         rectangle.setPosition(position.x,position.y);
     }
 	public void gengarlic() {
-    	position.x = 900;
+    	position.x = 800;
     	position.y = number.nextInt(500);
 	}
 	public void genblood() {

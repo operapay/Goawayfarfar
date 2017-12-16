@@ -30,6 +30,18 @@ public class World {
         downtrident2 = new Trident(0,395);
         score = 0;
 	}
+	public void resetWorld() {
+		charecter.getPosition().set(330, 200);
+		garlic.getPosition().set(850, number.nextInt(500));
+		blood.getPosition().set(850, number.nextInt(500));
+		trident.getPosition().set(800, -10);
+		trident2.getPosition().set(800, -10);
+		downtrident.getPosition().set(-100, 395);
+		downtrident2.getPosition().set(-100, 395);
+		Charecter.SPEED = 12;
+		score = 0;
+		time = 0;
+	}
 	Charecter getCharecter() {
 		return charecter;
 	}
@@ -72,7 +84,7 @@ public class World {
         if(time%500 == 150) {
         	garlic.gengarlic();
         }
-        if((time%500)>300 & (time%500)<500) {
+        if((time%500)>200 & (time%500)<500) {
         	garlic.move();
         }
         if(time%500 == 250) {
@@ -107,13 +119,15 @@ public class World {
         }
     	if(Intersector.overlaps(charecter.getRectangle(),garlic.getRectangle()))
     	{
-    		Charecter.SPEED = 5;
+    		Charecter.SPEED -= 3;
     		garlic.gengarlic();
+    		
     	}
     	if(Intersector.overlaps(charecter.getRectangle(),blood.getRectangle()))
     	{
-    		Charecter.SPEED = 20;
+    		Charecter.SPEED += 4;
     		blood.genblood();
+    		
     	} 
     	if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()) || 
     	   Intersector.overlaps(charecter.getRectangle(),trident2.getRectangle()) || 

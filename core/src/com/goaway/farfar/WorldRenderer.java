@@ -50,17 +50,20 @@ public class WorldRenderer {
         	Charecter.SPEED *= -1;
         }
         batch.draw(backgroundImg, 0, 100);
-        batch.draw(garlicImg, positiongarlic.getPosition().x, positiongarlic.getPosition().y,positiongarlic.width,positiongarlic.height);
-        batch.draw(bloodImg, positionblood.getPosition().x, positionblood.getPosition().y,positionblood.width,positionblood.height);
-        batch.draw(characterImg, poschar.getPosition().x, poschar.getPosition().y,poschar.width,poschar.height);
-    	batch.draw(tridentImg,posup.getPosition().x,posup.getPosition().y,posup.width,posup.height);
-    	batch.draw(trident2Img,posup2.getPosition().x,posup2.getPosition().y,posup2.width,posup2.height);
-    	batch.draw(downtridentImg,posdown.getPosition().x,posdown.getPosition().y,posdown.width,posdown.height);
-    	batch.draw(downtrident2Img,posdown2.getPosition().x,posdown2.getPosition().y,posdown2.width,posdown2.height);
-    	font.draw(batch, "score " + world.getScore(), 620, 70);
+        if(world.gameState == 0) {
+	        batch.draw(garlicImg, positiongarlic.getPosition().x, positiongarlic.getPosition().y,positiongarlic.width,positiongarlic.height);
+	        batch.draw(bloodImg, positionblood.getPosition().x, positionblood.getPosition().y,positionblood.width,positionblood.height);
+	        batch.draw(characterImg, poschar.getPosition().x, poschar.getPosition().y,poschar.width,poschar.height);
+	    	batch.draw(tridentImg,posup.getPosition().x,posup.getPosition().y,posup.width,posup.height);
+	    	batch.draw(trident2Img,posup2.getPosition().x,posup2.getPosition().y,posup2.width,posup2.height);
+	    	batch.draw(downtridentImg,posdown.getPosition().x,posdown.getPosition().y,posdown.width,posdown.height);
+	    	batch.draw(downtrident2Img,posdown2.getPosition().x,posdown2.getPosition().y,posdown2.width,posdown2.height);
+	    	font.draw(batch, "score " + world.getScore(), 620, 70);
+        }
 		if(world.gameState == 1) {
-			font.draw(batch, "gameOver", 320,300);
-			font.draw(batch, "highscore  " + world.getScore(),300,250);
+			font.draw(batch, "GAMEOVER", 340,400);
+			font.draw(batch, "highscore  " + world.getScore(),330,350);
+			font.draw(batch, "Enter To Play Agian", 300,300);
 		}
         batch.end();
 	}
