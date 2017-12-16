@@ -3,7 +3,6 @@ package com.goaway.farfar;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
 	private World world;
@@ -45,6 +44,9 @@ public class WorldRenderer {
         Trident posdown = world.getDowntrident();
         Trident posdown2 = world.getDowntrident2();
         if(poschar.getPosition().y<0 || poschar.getPosition().y>500) {
+        	Charecter.SPEED *= -1;
+        }
+        if(poschar.getPosition().x<0 || poschar.getPosition().x>700) {
         	Charecter.SPEED *= -1;
         }
         batch.draw(backgroundImg, 0, 100);

@@ -1,7 +1,8 @@
 package com.goaway.farfar;
 
 import java.util.Random;
-
+//import java.awt.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Item {
@@ -12,17 +13,23 @@ public class Item {
     private Random number = new Random();
     public int width;
     public int height;
+    private Rectangle rectangle;
     
     public Item(int x, int y) {
         position = new Vector2(x,y);
         width = 70;
         height = 70;
+        rectangle = new Rectangle(x,y,width,height);
     }    
  
     public Vector2 getPosition() {
         return position;    
     }
     
+    public Rectangle getRectangle() {
+    	return rectangle;
+    }
+   
     public void move() { 
         position.x -= SPEED;
     }

@@ -1,10 +1,13 @@
 package com.goaway.farfar;
 
+//import java.awt.Rectangle;
+
 //import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter {
@@ -33,7 +36,6 @@ public class GameScreen extends ScreenAdapter {
         trident2 = world.getTrident2();
         downtrident = world.getDowntrident();
         downtrident2 = world.getDowntrident2();
-        
     }    
     @Override
     public void render(float delta) {
@@ -55,7 +57,13 @@ public class GameScreen extends ScreenAdapter {
         }
         if(Gdx.input.isKeyPressed(Keys.UP)) {
         	charecter.move(Charecter.DIRECTION_UP);
-        } 
+        }
+        if(Gdx.input.isKeyPressed(Keys.LEFT)) {
+        	charecter.move(Charecter.DIRECTION_LEFT);
+        }
+        if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
+        	charecter.move(Charecter.DIRECTION_RIGHT);
+        }
         if(time%500 == 150) {
         	garlic.gengarlic();
         }
@@ -92,6 +100,26 @@ public class GameScreen extends ScreenAdapter {
     		downtrident.genDowntrident();
         	downtrident2.genDowntrident2();
         }
+    	if(Intersector.overlaps(charecter.getRectangle(),garlic.getRectangle()))
+    	{
+    		System.out.println("slow");
+    		Charecter.SPEED *= 0.5;
+    	}
+    	if(Intersector.overlaps(charecter.getRectangle(),blood.getRectangle()))
+    	{
+    		System.out.println("speed");
+    		Charecter.SPEED *= 2;
+    	}
+    	if(Intersector.overlaps(garlic.getRectangle(),charecter.getRectangle()))
+    	{
+    		System.out.println("slow");
+    		Charecter.SPEED *= 0.5;
+    	}
+    	if(Intersector.overlaps(blood.getRectangle(),charecter.getRectangle()))
+    	{
+    		System.out.println("speed");
+    		Charecter.SPEED *= 2;
+    	}
     }
 	public GoAwayFarFar getGoawayGame() {
 		return goawayGame;
