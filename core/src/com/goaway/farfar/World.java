@@ -1,7 +1,6 @@
 package com.goaway.farfar;
 
 import java.util.Random;
-
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
@@ -33,8 +32,6 @@ public class World {
         downtrident2 = new Trident(0,395);
         heart = new Heart(650,550);
         heart2 = new Heart(700,550);
-        //score = 0;
-        //count = 0;
 	}
 	public void resetWorld() {
 		charecter.getPosition().set(330, 200);
@@ -51,15 +48,15 @@ public class World {
 		time = 0;
 		count = 0;
 	}
-	Charecter getCharecter() {
-		return charecter;
-	}
 	public int getScore() {
 		return score;
 	}
     public void increaseScore() {
         score += 1;
     }
+	Charecter getCharecter() {
+		return charecter;
+	}
 	Item getGarlic() {
 		return garlic;
 	}
@@ -96,16 +93,16 @@ public class World {
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
-        if(time%500 == 350) {
+        if(time%500 == 150) {
         	garlic.gengarlic();
         }
-        if((time%500)>150 & (time%500)<500) {
+        if((time%500)>150 & (time%500)<600) {
         	garlic.move();
         }
         if(time%500 == 250) {
         	blood.genblood();
         }
-        if((time%500)>100 & (time%500)<500) {
+        if((time%500)>100 & (time%500)<600) {
         	blood.move2();
         }
         if(posup.x > -200) {

@@ -1,7 +1,6 @@
 package com.goaway.farfar;
 
 import com.badlogic.gdx.math.Rectangle;
-//import java.awt.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Charecter {
@@ -16,8 +15,7 @@ public class Charecter {
     public int width;
     public int height;
     private Rectangle rectangle;
-    
-    
+     
     public Charecter(int x, int y) {
         position = new Vector2(x,y);
         width = 110;
