@@ -14,9 +14,12 @@ public class World {
 	private Trident trident2;
 	private Trident downtrident;
 	private Trident downtrident2;
+	private Heart heart;
+	private Heart heart2;
     private Random number = new Random();
     private int score;
     private int time;
+    private int count;
     public int gameState = 0;
 	
 	World(GoAwayFarFar goawayGame){
@@ -28,7 +31,10 @@ public class World {
         trident2 = new Trident(800,-10);
         downtrident = new Trident(0,395);
         downtrident2 = new Trident(0,395);
-        score = 0;
+        heart = new Heart(650,550);
+        heart2 = new Heart(700,550);
+        //score = 0;
+        //count = 0;
 	}
 	public void resetWorld() {
 		charecter.getPosition().set(330, 200);
@@ -38,9 +44,12 @@ public class World {
 		trident2.getPosition().set(800, -10);
 		downtrident.getPosition().set(-100, 395);
 		downtrident2.getPosition().set(-100, 395);
+		heart.getPosition().set(650, 550);
+		heart2.getPosition().set(700, 550);
 		Charecter.SPEED = 12;
 		score = 0;
 		time = 0;
+		count = 0;
 	}
 	Charecter getCharecter() {
 		return charecter;
@@ -69,6 +78,12 @@ public class World {
 	Trident getDowntrident2() {
 		return downtrident2;
 	}
+	Heart getHeart() {
+		return heart;
+	}
+	Heart getHeart2() {
+		return heart2;
+	}
 	public GoAwayFarFar getGoawayGame() {
 		return goawayGame;
 	}
@@ -81,10 +96,10 @@ public class World {
         Vector2 posup2 = trident2.getPosition();
         Vector2 posdown = downtrident.getPosition();
         Vector2 posdown2 = downtrident2.getPosition();
-        if(time%500 == 150) {
+        if(time%500 == 350) {
         	garlic.gengarlic();
         }
-        if((time%500)>200 & (time%500)<500) {
+        if((time%500)>150 & (time%500)<500) {
         	garlic.move();
         }
         if(time%500 == 250) {
@@ -134,6 +149,13 @@ public class World {
     	   Intersector.overlaps(charecter.getRectangle(),downtrident.getRectangle()) || 
     	   Intersector.overlaps(charecter.getRectangle(),downtrident2.getRectangle()))
     	{
+    		count++;
+    		if(count>=20 && count<=40)
+    			heart.getPosition().set(800,600);
+    		if(count>=45 && count<=65)
+    			heart2.getPosition().set(800,600);
+    	}
+    	if(count>=85) {
     		gameState = 1;
     	}
 	}
