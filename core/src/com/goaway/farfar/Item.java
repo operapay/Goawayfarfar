@@ -1,7 +1,6 @@
 package com.goaway.farfar;
 
 import java.util.Random;
-//import java.awt.Rectangle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,7 +28,6 @@ public class Item {
     public Rectangle getRectangle() {
     	return rectangle;
     }
-   
     public void move() { 
         position.x -= SPEED;
     }

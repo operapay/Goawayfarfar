@@ -1,8 +1,10 @@
 package com.goaway.farfar;
 
+//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+//import com.badlogic.gdx.math.Rectangle;
 
 public class WorldRenderer {
 	private World world;
@@ -17,6 +19,7 @@ public class WorldRenderer {
     private Texture backgroundImg;
     WorldRenderer worldrenderer;
     private BitmapFont font;
+    //private int gameState;
     
     public WorldRenderer(GoAwayFarFar goaway, World world) {
     	this.goaway = goaway;
@@ -57,7 +60,12 @@ public class WorldRenderer {
     	batch.draw(trident2Img,posup2.getPosition().x,posup2.getPosition().y,posup2.width,posup2.height);
     	batch.draw(downtridentImg,posdown.getPosition().x,posdown.getPosition().y,posdown.width,posdown.height);
     	batch.draw(downtrident2Img,posdown2.getPosition().x,posdown2.getPosition().y,posdown2.width,posdown2.height);
+    	//batch.draw(new Rectangle(10,100,50,30));
     	font.draw(batch, "score " + world.getScore(), 620, 70);
+		if(world.gameState == 1) {
+			font.draw(batch, "gameOver", 320,300);
+			font.draw(batch, "highscore  " + world.getScore(),300,250);
+		}
         batch.end();
 	}
 }
