@@ -15,7 +15,7 @@ public class Trident {
     
     public Trident(int x,int y) {
         position = new Vector2(x,y);
-        width = 180;
+        width = 140;
         height = 260;
         rectangle = new Rectangle(x,y,width,height);
     }

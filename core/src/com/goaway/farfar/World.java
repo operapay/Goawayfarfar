@@ -115,21 +115,12 @@ public class World {
     		Charecter.SPEED = 20;
     		blood.genblood();
     	} 
-    	if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()))
+    	if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()) || 
+    	   Intersector.overlaps(charecter.getRectangle(),trident2.getRectangle()) || 
+    	   Intersector.overlaps(charecter.getRectangle(),downtrident.getRectangle()) || 
+    	   Intersector.overlaps(charecter.getRectangle(),downtrident2.getRectangle()))
     	{
     		gameState = 1;
     	}
-    	if(Intersector.overlaps(charecter.getRectangle(),trident2.getRectangle()))
-    	{
-    		gameState = 1;
-    	} 
-    	if(Intersector.overlaps(charecter.getRectangle(),downtrident.getRectangle()))
-    	{
-    		gameState = 1;
-    	}
-    	if(Intersector.overlaps(charecter.getRectangle(),downtrident.getRectangle()))
-    	{
-    		gameState = 1;
-    	} 
 	}
 }
