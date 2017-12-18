@@ -132,14 +132,21 @@ public class World {
     	if(Intersector.overlaps(charecter.getRectangle(),garlic.getRectangle()))
     	{
     		Charecter.SPEED -= 3;
+    		if(Charecter.SPEED <= 3)
+    		{
+    			Charecter.SPEED = 3;
+    		}
     		garlic.gengarlic();
     		
     	}
     	if(Intersector.overlaps(charecter.getRectangle(),blood.getRectangle()))
     	{
     		Charecter.SPEED += 4;
-    		blood.genblood();
-    		
+    		if(Charecter.SPEED >= 20)
+    		{
+    			Charecter.SPEED = 20;
+    		}
+    		blood.genblood(); 		
     	} 
     	if(Intersector.overlaps(charecter.getRectangle(),trident.getRectangle()) || 
     	   Intersector.overlaps(charecter.getRectangle(),trident2.getRectangle()) || 
